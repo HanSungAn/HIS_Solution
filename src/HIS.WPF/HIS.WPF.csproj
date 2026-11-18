@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- [DevExpress] MVVM 패턴 지원 라이브러리 (ViewModelBase, AsyncCommand, DelegateCommand 등 제공) -->
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
+    <PackageReference Include="DevExpress.Mvvm" Version="25.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HIS.Core\HIS.Core.csproj" />
+    <ProjectReference Include="..\HIS.Data\HIS.Data.csproj" />
+    <ProjectReference Include="..\HIS.Services\HIS.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

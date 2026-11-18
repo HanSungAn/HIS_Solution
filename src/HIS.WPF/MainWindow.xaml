@@ -1,0 +1,81 @@
+﻿<!-- [DevExpress 전환 가이드]
+     현재 화면은 기본 WPF 컨트롤로 동작하며, DevExpress 상용 패키지 연결 시 아래 컨트롤로 1:1 고도화할 수 있습니다.
+     - Window       -> dx:ThemedWindow (테마/스킨 일괄 적용)
+     - TabControl   -> dxdo:DockLayoutManager + DocumentGroup (다중 탭 MDI)
+     - DataGrid     -> dxg:GridControl + dxg:TableView (정렬/필터/그룹핑/Excel 내보내기/조건부 서식)
+     - ComboBox     -> dxg:LookUpEdit (다중 컬럼 드롭다운 검색)
+     - DatePicker   -> dxe:DateEdit
+-->
+<Window x:Class="HIS.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:HIS.WPF.Views"
+        Title="병원정보시스템" Height="760" Width="1280"
+        WindowStartupLocation="CenterScreen" Background="#F1F5F9">
+    <DockPanel>
+        <!-- 상단 메뉴바 -->
+        <Menu DockPanel.Dock="Top" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="6,2">
+            <MenuItem Header="파일(_F)">
+                <MenuItem Header="수납 이력 엑셀 저장(_E)" Command="{Binding PaymentHistory.ExportExcelCommand}"/>
+                <Separator/>
+                <MenuItem Header="전체 데이터 새로고침(_R)" Command="{Binding RefreshAllCommand}"/>
+                <Separator/>
+                <MenuItem Header="로그아웃(_L)" Command="{Binding LogoutCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- 상단 헤더 -->
+        <Border DockPanel.Dock="Top" Background="#1E3A5F" Padding="16,10">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="ABC 병원" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="  |  외래 접수 · EMR/OCS · 수납 통합 워크플로우" Foreground="#CBD5E1" FontSize="13" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border Background="#0F172A" CornerRadius="4" Padding="10,4" Margin="0,0,10,0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding RemainingSessionText}" Foreground="#FDE047" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <Button Content="연장" Command="{Binding ExtendSessionCommand}" Padding="6,2" FontSize="11" Background="#334155" Foreground="White" BorderThickness="0"/>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="{Binding CurrentUserDisplay}" Foreground="White" FontWeight="SemiBold" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                    <Button Content="새로고침" Command="{Binding RefreshAllCommand}" Padding="12,5" Margin="0,0,8,0" Background="#2563EB" Foreground="White" BorderThickness="0"/>
+                    <Button Content="로그아웃" Command="{Binding LogoutCommand}" Padding="12,5" Background="#475569" Foreground="White" BorderThickness="0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 하단 상태바 -->
+        <Border DockPanel.Dock="Bottom" Background="#E2E8F0" Padding="12,6">
+            <TextBlock Text="{Binding StatusMessage}" Foreground="#334155" FontSize="12"/>
+        </Border>
+
+        <!-- 메인 탭 -->
+        <TabControl Margin="10" Background="White">
+            <!-- 1. 외래 접수 / 원무 -->
+            <TabItem Header="1. 외래 접수 / 원무" Padding="14,6">
+                <views:ReceptionView DataContext="{Binding Reception}"/>
+            </TabItem>
+
+            <!-- 2. 진료 / EMR · OCS -->
+            <TabItem Header="2. 진료 / EMR · OCS" Padding="14,6">
+                <views:EmrView DataContext="{Binding Emr}"/>
+            </TabItem>
+
+            <!-- 3. 진료비 수납 -->
+            <TabItem Header="3. 진료비 수납" Padding="14,6">
+                <views:BillingView DataContext="{Binding Billing}"/>
+            </TabItem>
+
+            <!-- 4. 수납 내역 이력 -->
+            <TabItem Header="4. 수납 내역 이력" Padding="14,6">
+                <views:PaymentHistoryView DataContext="{Binding PaymentHistory}"/>
+            </TabItem>
+
+            <!-- 5. 감사 로그 -->
+            <TabItem Header="5. 감사 로그 (보안/이력)" Padding="14,6">
+                <views:AuditLogView DataContext="{Binding AuditLog}"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

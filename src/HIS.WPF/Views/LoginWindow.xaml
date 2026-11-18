@@ -1,0 +1,24 @@
+<Window x:Class="HIS.WPF.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HIS 시스템 로그인" Height="390" Width="380"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="#F5F7FA">
+    <Border Margin="24" Padding="24" Background="White" CornerRadius="8" BorderBrush="#DCE1E8" BorderThickness="1">
+        <StackPanel>
+            <TextBlock Text="ABC 병원" FontSize="20" FontWeight="Bold" Foreground="#1E3A5F" Margin="0,0,0,4"/>
+            <TextBlock Text="병원정보시스템" FontSize="12" Foreground="#64748B" Margin="0,0,0,18"/>
+
+            <TextBlock Text="아이디 (doc1 / desk1 / admin)" FontSize="12" Margin="0,0,0,4"/>
+            <TextBox Text="{Binding LoginId, UpdateSourceTrigger=PropertyChanged}" Height="32" Padding="8,5" Margin="0,0,0,12"/>
+
+            <TextBlock Text="비밀번호 (초기값: 1234)" FontSize="12" Margin="0,0,0,4"/>
+            <PasswordBox x:Name="PwdBox" Height="32" Padding="8,5" Margin="0,0,0,8" PasswordChanged="PwdBox_PasswordChanged"/>
+
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="#DC2626" FontSize="12" Height="18" Margin="0,0,0,8"/>
+
+            <Button Content="로그인" Command="{Binding LoginCommand}" IsDefault="True"
+                    Height="36" Background="#1D4ED8" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+        </StackPanel>
+    </Border>
+</Window>
