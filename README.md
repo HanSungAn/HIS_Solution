@@ -1,4 +1,4 @@
-# HIS Soultion (병원정보시스템)
+# HIS Solution (병원정보시스템)
 
 C#(.NET 8), WPF(MVVM), `DevExpress.Mvvm`, MSSQL(Dapper)을 활용하여 **외래 접수 → 진료/처방(EMR·OCS) → 수납 → 수납 이력/엑셀 내보내기 → 감사 로그**까지 병원 핵심 업무 흐름을 구현한 포트폴리오 프로젝트입니다.
 
